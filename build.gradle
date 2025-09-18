@@ -1,12 +1,13 @@
 plugins {
 	id 'java'
+    id 'application'
 	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+    id "com.github.johnrengelman.shadow" version '8.1.1'
 }
 
 group = 'com.buki.twitchbot'
 version = '0.0.1-SNAPSHOT'
-description = 'A bot that checks for certain usernames to see if they're available. '
 
 java {
 	toolchain {
@@ -15,13 +16,39 @@ java {
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+    maven {
+        url 'https://jitpack.io/'
+        name 'jitpack'
+    }
+    maven {
+        url 'https://m2.chew.pro/releases'
+    }
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Consumer dependencies imported.
+    implementation ('pw.chew:jda-chewtils:1.24.1')
+    // Logging
+    implementation('ch.qos.logback:logback-classic:1.5.13')
+    implementation ('ch.qos.logback:logback-core:1.5.13')
+    // Discord API
+    implementation('net.dv8tion:JDA:5.1.0')
+    // OkHttp API
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    // JSON parsing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    // Security
+    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 }
 
 tasks.named('test') {
