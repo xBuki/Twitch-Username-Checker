@@ -31,6 +31,5 @@ public class TwitchUsernameChecker {
         Response response = client.newCall(request).execute();
         String body = response.body().string();
         return !body.contains("\"id\"");
-
     }
 }

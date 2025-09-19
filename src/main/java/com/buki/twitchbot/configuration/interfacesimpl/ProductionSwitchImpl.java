@@ -31,6 +31,11 @@ public class ProductionSwitchImpl implements IProductionSwitch {
     }
 
     @Override
+    public String[] getTwitchUsernames() {
+        return EnvConfig.get("TWITCH_USERNAMES").split(",");
+    }
+
+    @Override
     public BigInteger getUserID() {
         return textParser.parseToBigInt(EnvConfig.get("DISCORD_USER_ID"));
     }

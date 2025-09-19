@@ -6,6 +6,7 @@ public interface IProductionSwitch {
     String getDiscordToken();
     String getTwitchClientID();
     String getTwitchClientSecret();
+    String[] getTwitchUsernames();
     BigInteger getUserID();
     String getStatus();
 }

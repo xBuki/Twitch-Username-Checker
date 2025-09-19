@@ -3,6 +3,7 @@ package com.buki.twitchbot.service;
 import com.buki.twitchbot.configuration.interfaces.IProductionSwitch;
 import okhttp3.*;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class TokenRefresher {
 
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
-        //JSONObject json = new JSONObject(responseBody);
-        //accessToken = json.getString("access_token").toString();
+        JSONObject json = new JSONObject(responseBody);
+        accessToken = json.getString("access_token").toString();
     }
 }
