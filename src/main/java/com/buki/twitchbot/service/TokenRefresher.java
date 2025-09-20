@@ -1,6 +1,8 @@
 package com.buki.twitchbot.service;
 
 import com.buki.twitchbot.configuration.interfaces.IProductionSwitch;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
 import org.json.JSONObject;
@@ -11,13 +13,15 @@ import java.io.IOException;
 public class TokenRefresher {
     private final IProductionSwitch productionSwitch;
     private String accessToken;
+    private int refreshAttempts;
+    private long expirationTime;
 
     public TokenRefresher(IProductionSwitch productionSwitch) {
         this.productionSwitch = productionSwitch;
     }
 
     public String getAccessToken() throws IOException {
-        if (accessToken == null) refreshAccessToken();
+        if (accessToken == null || System.currentTimeMillis() >= expirationTime) refreshAccessToken();
         return accessToken;
     }
 
@@ -34,9 +38,20 @@ public class TokenRefresher {
                 .post(body)
                 .build();
 
-        Response response = client.newCall(request).execute();
-        String responseBody = response.body().string();
-        JSONObject json = new JSONObject(responseBody);
-        accessToken = json.getString("access_token").toString();
+        try (Response response = client.newCall(request).execute()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(response.body().string());
+            accessToken = jsonNode.get("access_token").asText();
+            expirationTime = System.currentTimeMillis() + jsonNode.get("expires_in").asLong() * 1000;
+            refreshAttempts++;
+        }
+    }
+
+    public int getRefreshAttempts() {
+        return refreshAttempts;
+    }
+
+    public long getExpirationTime() {
+        return expirationTime;
     }
 }

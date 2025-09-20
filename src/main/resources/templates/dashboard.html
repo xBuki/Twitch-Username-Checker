@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Twitch Username Checker Dashboard</title>
+</head>
+<body>
+<h1>Twitch Username Checker</h1>
+
+<p><strong>Token Expiration:</strong> <span th:text="${tokenExpiration}"></span></p>
+<p><strong>Refresh Attempts:</strong> <span th:text="${refreshAttempts}"></span></p>
+
+<h2>Tracked Usernames</h2>
+<table border="1">
+    <tr>
+        <th>Username</th>
+        <th>Status</th>
+        <th>Last Checked</th>
+    </tr>
+    <tr th:each="status : ${usernameStatuses}">
+        <td th:text="${status.username}"></td>
+        <td th:text="${status.available ? '✅ Available' : '❌ Unavailable'}"></td>
+        <td th:text="${status.lastChecked}"></td>
+    </tr>
+</table>
+
+<h3>Add/Remove Usernames</h3>
+<form method="post" action="/dashboard/update-usernames">
+    <textarea name="usernames" placeholder="Enter usernames, one per line"></textarea>
+    <br>
+    <button type="submit">Update List</button>
+</form>
+</body>
+</html>

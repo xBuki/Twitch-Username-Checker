@@ -29,6 +29,10 @@ public class TwitchUsernameChecker {
                 .build();
 
         Response response = client.newCall(request).execute();
+        System.out.println("Checking username availability for: " + username);
+        System.out.println("Response Code: " + response.code());
+        System.out.println("Response Body: " + response.body().string());
+
         String body = response.body().string();
         return !body.contains("\"id\"");
     }

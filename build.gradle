@@ -35,7 +35,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     // Consumer dependencies imported.
     implementation ('pw.chew:jda-chewtils:1.24.1')
     // Logging
