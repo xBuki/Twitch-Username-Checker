@@ -31,6 +31,11 @@ public class ProductionSwitchImpl implements IProductionSwitch {
     }
 
     @Override
+    public String getTwitchAccessToken() {
+        return EnvConfig.get("ACCESS_TOKEN");
+    }
+
+    @Override
     public String[] getTwitchUsernames() {
         return EnvConfig.get("TWITCH_USERNAMES").split(",");
     }
