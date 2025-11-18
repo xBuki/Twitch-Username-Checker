@@ -25,6 +25,10 @@ public class TokenRefresher {
         return accessToken;
     }
 
+    /**
+     *
+     * Check screenshots regarding the API calls.
+     */
     public void refreshAccessToken() throws IOException {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = new FormBody.Builder()
