@@ -17,6 +17,7 @@ build/
 .properties
 App.config
 *.properties.local
+src/main/resources/application.properties
 
 
 ### IntelliJ IDEA ###

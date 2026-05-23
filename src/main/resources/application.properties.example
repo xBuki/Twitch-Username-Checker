@@ -1,0 +1,17 @@
+spring.application.name=twitch-username-checker
+spring.main.web-application-type=none
+
+# --- Discord ---
+# Webhook URL from: Discord channel -> Edit Channel -> Integrations -> Webhooks -> New Webhook -> Copy Webhook URL
+discord.webhook-url=YOUR_DISCORD_WEBHOOK_URL
+
+# --- Twitch ---
+# From https://dev.twitch.tv/console/apps
+twitch.client-id=YOUR_TWITCH_CLIENT_ID
+twitch.client-secret=YOUR_TWITCH_CLIENT_SECRET
+# Comma-separated list of usernames to monitor
+twitch.usernames=username1,username2
+
+# --- Checker ---
+# How often to poll Twitch (milliseconds). 300000 = 5 minutes
+checker.interval-ms=300000
